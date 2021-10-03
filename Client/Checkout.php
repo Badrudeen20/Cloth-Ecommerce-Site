@@ -96,32 +96,25 @@ if(!isset($_SESSION['CUSTOMER'])){
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
 <script>
  function orderPlaced(userid){
-   var name = document.getElementById('name').value
-   var appartment = document.getElementById('appartment').value
-   var city = document.getElementById('city').value
-   var post = document.getElementById('post').value
-   var email = document.getElementById('email').value
-   var phone = document.getElementById('phone').value
-   var payment  = document.querySelector('input[name="payment"]:checked').value
-   var total  = document.getElementById('total').innerHTML
-   
-  var xhttp = new XMLHttpRequest()
-  xhttp.open('post','Orderplaced.php',true)
-  xhttp.setRequestHeader("Content-Type","application/json")
-  xhttp.onreadystatechange = function(){
-      if(this.readyState == 4 && this.status == 200){
-        var res = this.responseText 
-        if(res=="success"){
-            window.location.href="Home.php"
-        }
-      }
-  }
-
-  var data = {userid:userid,total:total, name:name,appartment:appartment,city:city,post:post,email:email,phone:phone,payment:payment }
-
-  xhttp.send(JSON.stringify(data)) 
+    var name = $('#name').val()
+   var appartment = $('#appartment').val()
+   var city = $('#city').val()
+   var post = $('#post').val()
+   var email = $('#email').val()
+   var phone = $('#phone').val()
+   var payment  = $('input[name="payment"]:checked').val()
+   var total  = $('#total').html()
+   $.ajax({
+       url:'Orderplaced.php',
+       method:'POST',
+       data:{userid:userid,total:total, name:name,appartment:appartment,city:city,post:post,email:email,phone:phone,payment:payment },
+       success:function(data){
+         alert(data)
+       }
+   })
 
  }
 </script>
